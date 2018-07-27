@@ -1,0 +1,52 @@
+extends ../layout
+
+block content
+    .container
+        .row
+            .col-md-4
+                p.navbar-left
+                    a(target="_blank", href="/return") #{index}
+            .col-md-8
+                p.navbar-right
+                    a.navbar-link(href="#", data-toggle="modal", data-target="#addGoodsModal") #{btn}
+        .row
+            table.table.table-hover.table-bordered
+                thead
+                    tr
+                        th 商品编号
+                        th 商品名称
+                        th 商品价格
+                        th 商品图片
+                        th 查看
+                        th 修改
+                        th 删除
+                    tbody
+                        each item in goods
+                            tr(class="item-id-" + item._id)
+                                td #{item._id}
+                                td #{item.productName}
+                                td #{item.salePrice}
+                                td #{item.productImage}
+                                td: a(target="_blank", href="../movie/" + item._id)  查看
+                                td: a(target="_blank", href="../admin/update/" + item._id)  修改
+                                td
+                                    button.btn.btn-danger.del(type="button",data-id=item._id) 删除
+    #addGoodsModal.modal.fade
+        .modal-dialog
+            .modal-content
+                form(method="POST", action="/addGoods")
+                    .modal-header 添加商品
+                    .modal-body
+                        .form-group
+                            label(for="signinName") 商品名称
+                            input#signinName.form-control(name="goods[productName]", type="text")
+                        .form-group
+                            label(for="signinPrice") 商品价格
+                            input#signinPrice.form-control(name="goods[salePrice]", type="text")
+                        .form-group
+                            label(for="signinPassword") 商品图片
+                            input#signinPassword.form-control(name="goods[productImage]", type="text")
+                    .modal-footer
+                        button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+                        button.btn.btn-success(type="submit") 提交
+    script(src="/static/admin.js")

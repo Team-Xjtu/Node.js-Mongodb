@@ -3,24 +3,29 @@ extends ../layout
 block content
     .container
         .row
+            .col-md-4
+                p.navbar-left
+                    button.btn.btn-primary.del(target="_blank", href="/return") #{index}
+            .col-md-8
+                p.navbar-right
+                    button.btn.btn-primary.del(target="_blank", href="../addUser") #{btn}
+        .row
             table.table.table-hover.table-bordered
                 thead
                     tr
-                        th 名字
-                        th 密码
-                        th 邮箱
-                        th 时间
+                        th 用户编号
+                        th 用户姓名
+                        th 用户密码
                         th 查看
                         th 修改
                         th 删除
                     tbody
                         each item in users
-                            tr(class="item-id-" + item_id)
-                                td #{item.name}
-                                td #{item.password}
-                                td #{item.email}
-                                td #{moment(item.meta.updateAt).format('MM/DD/YYYY')}
-                                td: a(target="_blank", href="../movie/#{item._id}")  查看
-                                td: a(target="_blank", href="../admin/update/#{item._id}")  修改
+                            tr(class="item-id-" + item._id)
+                                td #{item._id}
+                                td #{item.userName}
+                                td #{item.userPassword}
+                                td: button.btn.btn-primary.del(target="_blank", href="../movie/#{item._id}")  查看
+                                td: button.btn.btn-info.del(target="_blank", href="../admin/update/#{item._id}")  修改
                                 td
                                     button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
